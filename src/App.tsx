@@ -1,5 +1,5 @@
 import React from "react";  
-import { GitHubBanner, Refine } from "@refinedev/core";  
+import {  Refine } from "@refinedev/core";  
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";  
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";  
 import {  
@@ -11,6 +11,7 @@ import {
 import CssBaseline from "@mui/material/CssBaseline";  
 import GlobalStyles from "@mui/material/GlobalStyles";  
 import routerBindings, {  
+  CatchAllNavigate,
   DocumentTitleHandler,  
   NavigateToResource,  
   UnsavedChangesNotifier,  
@@ -23,22 +24,35 @@ import { JemaatProvider } from "./providers/jemaat-data-provider"; // Import you
 import { JemaatCreate, JemaatEdit, JemaatList, JemaatShow } from "./pages/jemaats";  
 import { KartuKeluargaCreate, KartuKeluargaEdit, KartuKeluargaList, KartuKeluargaShow } from "./pages/kartu-keluargas";  
 
-import { authProvider } from "./providers/auth-provider";
+// import { authProvider } from "./providers/auth-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Import QueryClient and QueryClientProvider  
-import { MuiInferencer } from "@refinedev/inferencer/mui";
+// import { MuiInferencer } from "@refinedev/inferencer/mui";
 import { Login } from "./pages/login";
 import { DashboardPage } from "./pages/dashboard";
 import { Title } from "./components/title";
 
 import "@fontsource/poppins/400.css"; // Regular weight
 import "@fontsource/poppins/600.css"; // Semi-bold weight
+
 import { Dashboard, EmojiPeople, FamilyRestroom, Map } from "@mui/icons-material";
 import { RayonCreate, RayonEdit, RayonList, RayonShow } from "./pages/rayons";
+import { useAuth0 } from "@auth0/auth0-react";
 
+import { Authenticated } from "@refinedev/core";
+import { useAuthProvider } from "./providers/auth-provider";
 
 const queryClient = new QueryClient(); // Create a QueryClient instance  
   
-function App() {  
+function App() {
+  const { isLoading } = useAuth0();
+
+  const authProvider = useAuthProvider();
+  if (isLoading) {
+    return <span>loading...</span>;
+  }
+
+
+
   return (  
     <BrowserRouter>  
       <QueryClientProvider client={queryClient}> {/* Wrap with QueryClientProvider */}  
@@ -112,17 +126,21 @@ function App() {
                     }}  
                   >  
                     <Routes>
-                      {/* Tambahkan route untuk login */}
-                      <Route path="/login" element={<Login />} />
+                      {/* Route untuk halaman yang memerlukan autentikasi */}
                       <Route  
                         element={  
-                          <ThemedLayoutV2 Header={() => <Header sticky /> } Title={Title}>  
-                            <Outlet />  
-                          </ThemedLayoutV2>  
+                          <Authenticated
+                            key="authenticated-inner"
+                            fallback={<CatchAllNavigate to="/login" />}
+                          >
+                          <ThemedLayoutV2 Header={Header} Title={Title}>
+                            <Outlet />
+                          </ThemedLayoutV2>
+                        </Authenticated>
                         }>  
                         <Route  
                           index  
-                          element={<NavigateToResource resource="jemaat" />}  
+                          element={<NavigateToResource resource="dashboard" />}  
                         />
 
                         <Route path='/dashboard' element={<DashboardPage />} />
@@ -149,7 +167,10 @@ function App() {
                         </Route>
   
                         <Route path="*" element={<ErrorComponent />} />  
+
                       </Route>  
+                      <Route path="/login" element={<Login />} />
+                      {/* Tambahkan route untuk login */}
                     </Routes>  
   
                     <RefineKbar />  
