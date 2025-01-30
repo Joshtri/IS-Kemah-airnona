@@ -7,15 +7,20 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
 
+const DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
 root.render(
   <React.StrictMode>
-      <Auth0Provider
-      domain="YOUR_DOMAIN"
-      clientId="YOUR_CLIENT_ID"
-      redirect_uri={window.location.origin}
+    <Auth0Provider
+    domain={import.meta.env.VITE_AUTH0_DOMAIN}
+    clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin
+      }}
+      cacheLocation="localstorage" // ✅ Simpan sesi di localStorage
+
     >
 
-    <App />
+      <App />
     </Auth0Provider>
   </React.StrictMode>
 );
