@@ -26,7 +26,7 @@ import { KartuKeluargaCreate, KartuKeluargaEdit, KartuKeluargaList, KartuKeluarg
 import { authProvider } from "./providers/auth-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Import QueryClient and QueryClientProvider  
 import { MuiInferencer } from "@refinedev/inferencer/mui";
-import { LoginPage } from "./pages/login";
+import { Login } from "./pages/login";
 import { DashboardPage } from "./pages/dashboard";
 import { Title } from "./components/title";
 
@@ -54,7 +54,7 @@ function App() {
                     dataProvider={dataProvider(`${import.meta.env.VITE_BASE_URL}/api`)}  
                     notificationProvider={useNotificationProvider}  
                     routerProvider={routerBindings}  
-                    LoginPage={LoginPage} // Ini akan menampilkan halaman login saat user belum terautentikasi
+                    LoginPage={Login} // Ini akan menampilkan halaman login saat user belum terautentikasi
                     resources={[
                       {
                         name: "dashboard",
@@ -113,7 +113,7 @@ function App() {
                   >  
                     <Routes>
                       {/* Tambahkan route untuk login */}
-                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/login" element={<Login />} />
                       <Route  
                         element={  
                           <ThemedLayoutV2 Header={() => <Header sticky /> } Title={Title}>  

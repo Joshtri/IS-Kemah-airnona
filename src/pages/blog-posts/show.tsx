@@ -33,6 +33,7 @@ export const BlogPostShow = () => {
         <Typography variant="body1" fontWeight="bold">
           {"Title"}
         </Typography>
+        
         <TextField value={record?.title} />
 
         <Typography variant="body1" fontWeight="bold">
