@@ -38,7 +38,7 @@ export const JemaatEdit = () => {
         console.log("📌 Nilai dalam form setelah setValue:", watch()); // Debug nilai form
     }, [jemaatData, setValue]);
 
-    const handleSubmit = (data) => {
+    const handleSubmit = (data: any) => {
         console.log("🚀 Data yang dikirim ke backend:", data); // Debug saat submit
         onFinish(data);
     };

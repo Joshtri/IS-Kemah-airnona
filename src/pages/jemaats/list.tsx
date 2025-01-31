@@ -14,8 +14,8 @@ export const JemaatList: React.FC = () => {
   // console.log("dataGridProps:", dataGridProps); // Debugging
 
   // Ambil data dari dataGridProps.rows.data
-  const rows = dataGridProps.rows?.data || [];
-  const total = dataGridProps.rows?.total || 0;
+  const rows = dataGridProps.rows || [];
+  // const total = dataGridProps.rows?.total || 0;
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -79,7 +79,7 @@ export const JemaatList: React.FC = () => {
     [],
   );
 
-  if (dataGridProps.isLoading) {
+  if (dataGridProps.loading) {
     return (
       <List>
         <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -89,7 +89,7 @@ export const JemaatList: React.FC = () => {
     );
   }
 
-  if (dataGridProps.error) {
+  if (!rows || rows.length === 0) {
     return (
       <List>
         <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -115,7 +115,7 @@ export const JemaatList: React.FC = () => {
     <List title="Jemaat">
       <DataGrid
         rows={rows} // Gunakan data dari rows
-        rowCount={total} // Gunakan total dari dataGridProps.rows.total
+        rowCount={dataGridProps.rowCount} // Gunakan total dari dataGridProps.rows.total
         columns={columns}
         autoHeight
         pagination
