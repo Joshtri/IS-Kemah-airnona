@@ -6,7 +6,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
-
+  
 const DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
 root.render(
   <React.StrictMode>

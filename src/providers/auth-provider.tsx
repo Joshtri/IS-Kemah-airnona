@@ -6,11 +6,15 @@ export const useAuthProvider = (): AuthBindings => {
   const { isAuthenticated, user, logout, getIdTokenClaims } = useAuth0();
 
   const authProvider: AuthBindings = {
+    onError: async (error) => {
+      console.error(error);
+      return { success: false, error };
+    },
     login: async () => {
       return { success: true };
     },
     logout: async () => {
-      logout({ returnTo: window.location.origin });
+      logout({ logoutParams: { returnTo: window.location.origin } });
       return { success: true };
     },
     check: async () => {

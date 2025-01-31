@@ -10,7 +10,7 @@ export const KartuKeluargaShow = () => {
     const record = data?.data.data;
 
     return (
-        <Show isLoading={isLoading} error={isError}>
+        <Show isLoading={isLoading}>
             <Card>
                 <CardContent>
                     <Stack spacing={2}>

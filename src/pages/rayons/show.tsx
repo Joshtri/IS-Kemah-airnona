@@ -10,7 +10,7 @@ export const RayonShow = () => {
     const record = showData?.data.data;
 
     return (
-        <Show isLoading={showIsLoading} error={showIsError}>
+        <Show isLoading={showIsLoading} >
             <Card>
                 <CardContent>
                     <Stack spacing={2}>

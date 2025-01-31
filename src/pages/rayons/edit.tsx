@@ -35,7 +35,6 @@ export const RayonEdit = () => {
                     {...register("nama_rayon", { required: "Nama Rayon is required" })}
                     label="Nama Rayon"
                     error={!!errors.nama_rayon}
-                    helperText={errors.nama_rayon?.message}
                     margin="normal"
                     variant="outlined"
                     InputLabelProps={{
@@ -47,7 +46,6 @@ export const RayonEdit = () => {
                     {...register("wilayah", { required: "Wilayah is required" })}
                     label="Wilayah"
                     error={!!errors.wilayah}
-                    helperText={errors.wilayah?.message}
                     margin="normal"
                     variant="outlined"
                     InputLabelProps={{

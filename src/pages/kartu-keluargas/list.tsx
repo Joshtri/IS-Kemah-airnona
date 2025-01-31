@@ -11,17 +11,32 @@ import { Box, Typography, LinearProgress } from "@mui/material";
 import React from "react";
 
 
+interface IKartuKeluarga {
+    id: number;
+    nama_kepala_keluarga: string;
+    alamat_keluarga: string;
+    nomor_telepon_keluarga: string;
+
+}
+
+interface IApiResponse {
+  status: number;
+  message: string;
+  data: IKartuKeluarga[];
+}
+
+
 export const KartuKeluargaList = () => {
     const { dataGridProps } = useDataGrid();
 
     console.log("dataGridProps:", dataGridProps); // Debugging
 
     // Ambil data dari dataGridProps.rows.data
-    const rows = dataGridProps.rows || [];
+    // const rows = dataGridProps.rows || [];
     // const total = dataGridProps.rows?.total || 0;
 
 
-    const columns = React.useMemo<GridColDef[]>(() => [
+    const columns = React.useMemo<GridColDef<IKartuKeluarga>[]>(() => [
         {
             field: "nama_kepala_keluarga",
             headerName: "Nama Kepala Keluarga",
@@ -64,6 +79,10 @@ export const KartuKeluargaList = () => {
 
     
     ], []);
+
+      // Safely access rows from dataGridProps and handle undefined/empty data
+  const rows = (dataGridProps.rows as unknown as IApiResponse)?.data ?? [];
+
 
     // return <MuiInferencer />;
 

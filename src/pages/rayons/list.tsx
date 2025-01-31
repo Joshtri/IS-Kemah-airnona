@@ -1,24 +1,30 @@
-import React from "react";
-import {
-  useDataGrid,
-  EditButton,
-  ShowButton,
-  DeleteButton,
-  List,
-} from "@refinedev/mui";
+import React, { useMemo } from "react";
+import { useDataGrid } from "@refinedev/mui";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Typography, LinearProgress } from "@mui/material";
+import { EditButton, ShowButton, DeleteButton, List } from "@refinedev/mui";
+import { RefineListView } from "../../components";
+
+interface IRayon {
+  id: number;
+  nama_rayon: string;
+  wilayah: string;
+}
+
+interface IApiResponse {
+  status: number;
+  message: string;
+  data: IRayon[];
+}
 
 export const RayonList: React.FC = () => {
+  // Use dataGridProps to fetch data for rayon resource
   const { dataGridProps } = useDataGrid({
-    resource: "rayon", // Sesuaikan dengan nama di resources App.tsx
+    resource: "rayon", // Sesuaikan dengan resource Anda
   });
-  
-  // Ambil data dari dataGridProps.rows.data
-  const rows = dataGridProps.rows?.data || [];
-  // const total = dataGridProps.rows?.total || 0;
 
-  const columns = React.useMemo<GridColDef[]>(
+  // Define columns for the DataGrid
+  const columns: GridColDef<IRayon>[] = useMemo(
     () => [
       {
         field: "nama_rayon",
@@ -47,11 +53,12 @@ export const RayonList: React.FC = () => {
             <DeleteButton recordItemId={params.row.id} />
           </Box>
         ),
-      }
+      },
     ],
     []
   );
 
+  // If data is loading, show a loading spinner
   if (dataGridProps.loading) {
     return (
       <List>
@@ -62,19 +69,15 @@ export const RayonList: React.FC = () => {
     );
   }
 
-  if (!rows || rows.length === 0) {
-    return (
-      <List>
-        <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-          <Typography variant="h6" color="error">
-            Terjadi kesalahan saat memuat data.
-          </Typography>
-        </Box>
-      </List>
-    );
-  }
+  // Safely access rows from dataGridProps and handle undefined/empty data
+  const rows = (dataGridProps.rows as unknown as IApiResponse)?.data ?? [];
 
-  if (!rows || rows.length === 0) {
+  // Access status and message from the API response
+  const status = (dataGridProps.rows as unknown as IApiResponse)?.status;
+  const message = (dataGridProps.rows as unknown as IApiResponse)?.message;
+
+  // If no rows are available, show a message
+  if (rows.length === 0) {
     return (
       <List>
         <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -85,16 +88,22 @@ export const RayonList: React.FC = () => {
   }
 
   return (
-    <List title="Rayon">
+    <RefineListView>
+      {/* Display message from the backend if available */}
+      {message && (
+        <Typography variant="body1" color="primary" align="center">
+          {message}
+        </Typography>
+      )}
+
       <DataGrid
-        rows={rows} // Gunakan data dari rows
-        rowCount={dataGridProps.rowCount} // Gunakan total dari dataGridProps.rows.total
+        rows={rows}
+        rowCount={dataGridProps.rowCount ?? rows.length} // Use totalItemCount or fallback to rows.length
         columns={columns}
-        autoHeight
         pagination
-        paginationMode="server" // Sesuaikan dengan mode pagination backend
-        sortingMode="server" // Sesuaikan dengan mode sorting backend
+        paginationMode="server" // Enable pagination with server-side mode
+        sortingMode="server" // Enable sorting with server-side mode
       />
-    </List>
+    </RefineListView>
   );
 };

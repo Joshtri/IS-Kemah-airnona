@@ -37,7 +37,6 @@ export const KartuKeluargaEdit = () => {
                     label="Nama Kepala Keluarga"
                     {...register("nama_kepala_keluarga", { required: "Nama Kepala Keluarga is required" })}
                     error={!!errors.nama_kepala_keluarga}
-                    helperText={errors.nama_kepala_keluarga?.message || ""}
                     variant="outlined"
                     InputLabelProps={{
                         shrink: true, // Mengatur label agar tidak tertutupi oleh nilai
@@ -48,7 +47,6 @@ export const KartuKeluargaEdit = () => {
                     label="Alamat Keluarga"
                     {...register("alamat_keluarga", { required: "Alamat Keluarga is required" })}
                     error={!!errors.alamat_keluarga}
-                    helperText={errors.alamat_keluarga?.message || ""}
                     variant="outlined"
                     multiline
                     rows={4}
@@ -61,7 +59,6 @@ export const KartuKeluargaEdit = () => {
                     label="Nomor Telepon Keluarga"
                     {...register("nomor_telepon_keluarga", { required: "Nomor Telepon Keluarga is required" })}
                     error={!!errors.nomor_telepon_keluarga}
-                    helperText={errors.nomor_telepon_keluarga?.message || ""}
                     variant="outlined"
                     InputLabelProps={{
                         shrink: true, // Mengatur label agar tidak tertutupi oleh nilai

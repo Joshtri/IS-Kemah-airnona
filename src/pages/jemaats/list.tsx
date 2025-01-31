@@ -9,15 +9,35 @@ import {
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Typography, LinearProgress } from "@mui/material";
 
+
+
+interface IJemaat {
+  id: number;
+  nama_jemaat: string;
+  tanggal_lahir: string;
+  alamat: string;
+  nomor_telepon: string;
+  email: string;
+  status_keanggotaan: string;
+}
+
+
+interface IApiResponse {
+  status: number;
+  message: string;
+  data: IJemaat[];
+}
+
+
 export const JemaatList: React.FC = () => {
   const { dataGridProps } = useDataGrid();
   // console.log("dataGridProps:", dataGridProps); // Debugging
 
   // Ambil data dari dataGridProps.rows.data
-  const rows = dataGridProps.rows || [];
+  const rows = (dataGridProps.rows as unknown as IApiResponse)?.data ?? [];
   // const total = dataGridProps.rows?.total || 0;
 
-  const columns = React.useMemo<GridColDef[]>(
+  const columns = React.useMemo<GridColDef<IJemaat>[]>(
     () => [
       {
         field: "nama_jemaat",

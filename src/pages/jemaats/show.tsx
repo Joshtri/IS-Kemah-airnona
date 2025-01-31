@@ -51,15 +51,15 @@ export const JemaatShow = () => {
                                     id="tanggal-lahir"
                                     value={record.tanggal_lahir ? new Date(record.tanggal_lahir) : null}
                                     format="dd/MM/yyyy"
-                                    variant="outlined"
-                                    fullWidth
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
+                                
+                                    // InputProps={{
+                                    //     readOnly: true,
+                                    // }}
+                                    // InputLabelProps={{
+                                    //     shrink: true,
+                                    // }}
                                 />
+                                
                             </FormControl>
                         </Stack>
                         <FormControl fullWidth>
@@ -160,14 +160,14 @@ export const JemaatShow = () => {
                                 id="dibuat-pada"
                                 value={record.created_at ? new Date(record.created_at) : null}
                                 format="dd/MM/yyyy"
-                                variant="outlined"
-                                fullWidth
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // variant="outlined"
+                                // fullWidth
+                                // InputProps={{
+                                //     readOnly: true,
+                                // }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                             />
                         </FormControl>
                         <FormControl fullWidth>
@@ -176,14 +176,14 @@ export const JemaatShow = () => {
                                 id="diperbarui-pada"
                                 value={record.updated_at ? new Date(record.updated_at) : null}
                                 format="dd/MM/yyyy"
-                                variant="outlined"
-                                fullWidth
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // variant="outlined"
+                                // fullWidth
+                                // InputProps={{
+                                //     readOnly: true,
+                                // }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                             />
                         </FormControl>
                     </Stack>
