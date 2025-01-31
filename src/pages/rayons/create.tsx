@@ -38,7 +38,7 @@ export const RayonCreate = () => {
             // Berikan notifikasi kesalahan
             open?.({
                 message: "Gagal menambahkan data Rayon",
-                description: (error as any).message || "Terjadi kesalahan tidak terduga",
+                description: (error instanceof Error ? error.message : "Terjadi kesalahan tidak terduga"),
                 type: "error",
             });
         }
