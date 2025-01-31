@@ -40,6 +40,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { Authenticated } from "@refinedev/core";
 import { useAuthProvider } from "./providers/auth-provider";
+import { PrivacyPolicyPage } from "./pages/privacy-policy";
+import { TermOfServicePage } from "./pages/terms-of-service";
 
 const queryClient = new QueryClient(); // Create a QueryClient instance  
   
@@ -165,8 +167,12 @@ function App() {
                           <Route path='edit/:id' element={<RayonEdit/>} />
                           <Route path='show/:id' element={<RayonShow/>} />
                         </Route>
+
+
+                        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                        <Route path="/terms-of-service" element={<TermOfServicePage />} />
   
-                        <Route path="*" element={<ErrorComponent />} />  
+                        <Route path="*" element={<ErrorComponent />} /> 
 
                       </Route>  
                       <Route path="/login" element={<Login />} />
