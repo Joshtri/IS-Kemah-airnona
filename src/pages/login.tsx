@@ -51,11 +51,7 @@ export const Login: React.FC = () => {
           }}
           size="large"
           variant="contained"
-          onClick={() => loginWithRedirect({
-            authorizationParams: {
-              scope: "openid profile email" // Menambahkan scopes di sini
-            }
-          })}
+          onClick={() => loginWithRedirect()}
         >
           Masuk
         </Button>
